@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
@@ -11,11 +12,13 @@ const center = {
   lng: -38.523
 };
 
+
+
 const Mapa: React.FC = () => {
-  // const key = process.env.APP_GOOGLE_MAPS_API_KEY
+  const key = process.env.APP_GOOGLE_MAPS_API_KEY
   return (
     <div className="flex justify-center items-center h-screen">
-      <LoadScript googleMapsApiKey={/* Tu Key*/}>
+      <LoadScript googleMapsApiKey={key || ''} >
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}

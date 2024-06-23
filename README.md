@@ -25,7 +25,9 @@ RouterCraft is a route mapping project built with Laravel and React.
 2. Install the backend dependencies:
 
     ```bash
-    cd RouterCraft/Backend-RouterCraft
+    npm install dotenv ts-node
+    cambiar el .env del front por tu api
+    cd ./Backend-RouterCraft
     composer install
     ```
 
