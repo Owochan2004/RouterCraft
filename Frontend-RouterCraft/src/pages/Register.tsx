@@ -16,6 +16,11 @@ const Register = () => {
     try {
       const response = await ApiInstance.post("/auth/register", values);
       console.log(response.data);
+
+      // Guarda el token en localStorage
+      if (response.data.token) {
+        localStorage.setItem("jwtToken", response.data.token);
+      }
     } catch (error: any) {
       if (error.response) {
         console.log(error.response.data);
@@ -25,17 +30,17 @@ const Register = () => {
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(10, "EL nombre tiene que tener mas de 10 letras")
+      .min(1, "El nombre tiene que tener más de 1 letra")
       .required("El nombre es obligatorio"),
     email: Yup.string()
-      .email("El correo no es valido")
+      .email("El correo no es válido")
       .required("El correo es obligatorio"),
     password: Yup.string()
-      .min(5, "La contraseña tiene que tener mas de 5 digitos")
+      .min(6, "La contraseña tiene que tener más de 6 dígitos")
       .required("La contraseña es obligatoria"),
     password_confirmation: Yup.string()
       .oneOf([Yup.ref("password")], "Las contraseñas no coinciden")
-      .required("La confirmacion de la contraseña es obligatoria"),
+      .required("La confirmación de la contraseña es obligatoria"),
   });
 
   return (
@@ -65,7 +70,7 @@ const Register = () => {
                     label="Nombre"
                     type="text"
                     name="name"
-                    placeholder="Ingrese su nomre"
+                    placeholder="Ingrese su nombre"
                     error={errors.name}
                     onChange={handleChange}
                     value={values.name}

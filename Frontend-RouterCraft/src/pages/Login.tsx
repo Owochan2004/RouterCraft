@@ -11,28 +11,28 @@ const Login = () => {
   };
 
   const onSubmit = async (values: typeof initialValues) => {
-    // let response;
     try {
       const response = await ApiInstance.post("/auth/login", values);
       console.log(response.data);
+
+      // Guarda el token en localStorage
+      if (response.data.token) {
+        localStorage.setItem("jwtToken", response.data.token);
+      }
     } catch (error: any) {
       if (error.response) {
         const response = error.response.data;
-        console.log(response)
+        console.log(response);
       }
     }
-
-    // response.success
-    //   ? console.log("Login success")
-    //   : alert("Error al iniciar sesion");
   };
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("El correo no es valido")
+      .email("El correo no es válido")
       .required("El correo es obligatorio"),
     password: Yup.string()
-      .min(5, "La contraseña tiene que tener mas de 5 digitos")
+      .min(5, "La contraseña tiene que tener más de 5 dígitos")
       .required("La contraseña es obligatoria"),
   });
 
